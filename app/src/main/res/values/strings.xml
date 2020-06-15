@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">PhoneWallpaper</string>
+
+    <string name="wallpaper_activity_name">Wallpapers</string>
+    <string name="set_wallpaper">Set Wallpaper</string>
+    <string name="set_lockscreen">Set LockScreen</string>
+</resources>
