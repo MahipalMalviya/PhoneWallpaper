@@ -34,6 +34,9 @@ public class Photo implements Serializable {
     @SerializedName("liked")
     @Expose
     private boolean liked;
+    @SerializedName("avg_color")
+    @Expose
+    private boolean avgColor;
 
     public long getId() {
         return id;
@@ -107,4 +110,11 @@ public class Photo implements Serializable {
         this.liked = liked;
     }
 
+    public boolean isAvgColor() {
+        return avgColor;
+    }
+
+    public void setAvgColor(boolean avgColor) {
+        this.avgColor = avgColor;
+    }
 }

@@ -4,6 +4,12 @@ import android.content.Context
 import com.mahipal.phonewallpaper.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.OkHttpClient
+
+import okhttp3.logging.HttpLoggingInterceptor
+
+
+
 
 object RetrofitInstance {
 
@@ -11,11 +17,22 @@ object RetrofitInstance {
 
     fun getInstance(context: Context): APIService? {
         if (retrofit == null) {
-            retrofit = Retrofit.Builder()
+            val retrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.IMAGE_BASE_API)
                 .addConverterFactory(GsonConverterFactory.create())
-                .build()
+            if (BuildConfig.DEBUG) {
+                retrofit.client(setLogging())
+            }
+            retrofit.build()
         }
         return retrofit?.create(APIService::class.java)
+    }
+
+    fun setLogging(): OkHttpClient {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
     }
 }

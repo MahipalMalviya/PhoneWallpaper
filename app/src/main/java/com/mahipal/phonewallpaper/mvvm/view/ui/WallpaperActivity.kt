@@ -30,7 +30,7 @@ class WallpaperActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private var totalPage = 15
     private var isLoading = false
     var itemCount = 0
-    private var queryText: String? = "People"
+    private var queryText: String? = "Abstract"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,33 +47,30 @@ class WallpaperActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
 
     private fun observeImageList() {
         photoViewModel?.mutablePhotoList?.observe(this,
-            Observer<BaseResponse> { response ->
+            { response ->
+                activity_progressBar.visibility = View.GONE
+                if (response?.totalResults?:0 > 0) {
 
-                runOnUiThread {
-                    activity_progressBar.visibility = View.GONE
-                    if (response.totalResults > 0) {
-
-                        itemCount = if (response.photoList?.size ?: 0 > 0) {
-                            imageList.addAll(response.photoList)
-                            response.photoList.size
-                        } else {
-                            return@runOnUiThread
-                        }
-
-                        if (currentPage != PaginationListener.PAGE_START) wallpaperAdapter.removeLoading()
-
-                        wallpaperAdapter.addItems(imageList, imageList.size, itemCount)
-                        swipe_refresh.isRefreshing = false
-
-                        if (currentPage < totalPage) {
-                            wallpaperAdapter.addLoading()
-                        } else {
-                            isLastPage = true
-                        }
-                        isLoading = false
+                    itemCount = if (response.photoList?.size ?: 0 > 0) {
+                        imageList.addAll(response.photoList)
+                        response.photoList.size
                     } else {
-                        showMessage(this, "No Data found", 4)
+                        return@observe
                     }
+
+                    if (currentPage != PaginationListener.PAGE_START) wallpaperAdapter.removeLoading()
+
+                    wallpaperAdapter.addItems(imageList, imageList.size, itemCount)
+                    swipe_refresh.isRefreshing = false
+
+                    if (currentPage < totalPage) {
+                        wallpaperAdapter.addLoading()
+                    } else {
+                        isLastPage = true
+                    }
+                    isLoading = false
+                } else {
+                    showMessage(this, "No Data found", 4)
                 }
             })
     }
@@ -110,8 +107,6 @@ class WallpaperActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListe
     private fun initViewsAndListeners() {
         swipe_refresh.setOnRefreshListener(this)
         search_view.setOnQueryTextListener(this)
-
-        rv_wallpaper_list.setHasFixedSize(true)
 
         val columnWidth = resources.getDimension(R.dimen.column_width)
         val layoutManager = GridAutofitLayoutManager(this, columnWidth.toInt())

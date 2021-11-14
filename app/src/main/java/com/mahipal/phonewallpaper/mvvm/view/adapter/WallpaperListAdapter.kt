@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import coil.Coil
 import coil.request.LoadRequest.Companion.Builder
@@ -116,7 +117,7 @@ class WallpaperListAdapter(private val context: Context, photoList: ArrayList<Ph
             .target(
                 onStart = {
                     imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-                    imageView.setImageDrawable(context.getDrawable(R.drawable.ic_image_holder))
+                    imageView.setImageDrawable(AppCompatResources.getDrawable(context,R.drawable.ic_image_holder))
                 },
                 onSuccess = {
                     imageView.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -124,7 +125,7 @@ class WallpaperListAdapter(private val context: Context, photoList: ArrayList<Ph
                 },
                 onError = {
                     imageView.scaleType = ImageView.ScaleType.CENTER_INSIDE
-                    imageView.setImageDrawable(context.getDrawable(R.drawable.ic_image_holder))
+                    imageView.setImageDrawable(AppCompatResources.getDrawable(context,R.drawable.ic_image_holder))
                 }
             )
             .build()

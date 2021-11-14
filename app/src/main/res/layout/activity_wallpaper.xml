@@ -26,6 +26,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:queryHint="Search..."
+            android:focusedByDefault="false"
+            android:focusable="false"
             app:iconifiedByDefault="false"
             android:padding="2dp"/>
 

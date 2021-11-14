@@ -1,10 +1,8 @@
 package com.mahipal.phonewallpaper.network
 
-import com.mahipal.phonewallpaper.BuildConfig
 import com.mahipal.phonewallpaper.mvvm.model.BaseResponse
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
