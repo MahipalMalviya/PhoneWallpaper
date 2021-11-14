@@ -23,7 +23,7 @@ object RetrofitInstance {
             if (BuildConfig.DEBUG) {
                 retrofit.client(setLogging())
             }
-            retrofit.build()
+            this.retrofit = retrofit.build()
         }
         return retrofit?.create(APIService::class.java)
     }
