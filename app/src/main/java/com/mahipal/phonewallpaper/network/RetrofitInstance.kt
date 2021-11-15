@@ -28,7 +28,7 @@ object RetrofitInstance {
         return retrofit?.create(APIService::class.java)
     }
 
-    fun setLogging(): OkHttpClient {
+    private fun setLogging(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
         return OkHttpClient.Builder()
