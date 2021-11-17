@@ -21,3 +21,5 @@
 #-renamesourcefileattribute SourceFile
 
 -keepclassmembers,allowobfuscation class * { @com.google.gson.annotations.SerializedName <fields>; }
+-keepattributes LineNumberTable,SourceFile
+-renamesourcefileattribute SourceFile
